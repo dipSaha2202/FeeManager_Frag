@@ -1,0 +1,80 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar" >
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="EditTextStyle">
+        <item name="android:paddingStart">@dimen/edit_text_padding_start</item>
+        <item name="android:paddingEnd">@dimen/edit_text_padding</item>
+        <item name="android:layout_margin">@dimen/edit_text_margin</item>
+        <item name="android:textColor">@color/primary_text</item>
+        <item name="android:textSize">@dimen/edit_text_size</item>
+    </style>
+
+    <!-- TextView Theme -->
+    <style name="TextViewStyle">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">@dimen/text_view_padding</item>
+        <item name="android:layout_margin">@dimen/text_view_margin</item>
+        <item name="android:textSize">@dimen/text_view_text_size</item>
+        <item name="android:textColor">@color/primary_text</item>
+    </style>
+
+    <style name="TextViewStyle.AllStudent">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="TextViewStyle.WidthWrap">
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+
+    <style name="TextViewStyle.WidthParent">
+        <item name="android:layout_width">match_parent</item>
+    </style>
+
+    <style name="TextViewStyle.WidthWrap.Center">
+        <item name="android:gravity">center</item>
+    </style>
+
+    <!-- Spinner Theme. -->
+    <style name="SpinnerStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">@dimen/spinner_padding</item>
+        <item name="android:layout_margin">@dimen/spinner_margin</item>
+    </style>
+
+    <!-- Button Theme -->
+    <style name="ButtonStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/button_margin</item>
+        <item name="android:layout_marginBottom">@dimen/button_margin</item>
+        <item name="android:layout_marginStart">@dimen/button_margin</item>
+        <item name="android:layout_marginEnd">@dimen/button_margin</item>
+        <item name="android:padding">@dimen/button_padding</item>
+        <item name="android:background">@drawable/button_selector</item>
+        <item name="android:textColor">@color/icons</item>
+    </style>
+
+    <style name="ButtonStyle.Center">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+
+    <style name="ListStyle">
+        <item name="android:padding">@dimen/list_padding</item>
+        <item name="android:layout_margin">@dimen/list_margin</item>
+    </style>
+
+</resources>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <Spinner
+        android:id="@+id/spinnerClass_addStudent"
+        style="@style/SpinnerStyle"/>
+
+    <EditText
+        android:id="@+id/edtName_addStudent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:hint="@string/name_hint"
+        style="@style/EditTextStyle"
+       />
+
+    <EditText
+        android:id="@+id/edtFee_addStudent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:hint="@string/fee_hint_add_student"
+        style="@style/EditTextStyle"/>
+
+    <EditText
+        android:id="@+id/edtPhone_addStudent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="phone"
+        android:maxLength="10"
+        android:hint="@string/phone_hint"
+        style="@style/EditTextStyle"
+        />
+
+    <Button
+        android:id="@+id/btnAddStudent_add"
+        android:text="@string/add_student_button"
+        style="@style/ButtonStyle.Center"/>
+</LinearLayout>

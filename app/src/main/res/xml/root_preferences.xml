@@ -1,0 +1,31 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory app:title="@string/messages_header">
+
+        <EditTextPreference
+            app:key="signature"
+            app:title="@string/signature_title"
+            app:useSimpleSummaryProvider="true" />
+
+        <ListPreference
+            app:entries="@array/sim_name"
+            app:entryValues="@array/sim_slot"
+            app:key="@string/sim_settings_key"
+            app:title="@string/select_sim"
+            app:useSimpleSummaryProvider="true" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/other_setting_header">
+        <SwitchPreferenceCompat
+            app:key="@string/vibration_key"
+            app:title="@string/vibration_title"
+            app:defaultValue="true"/>
+
+        <SwitchPreferenceCompat
+            app:key="@string/bio_key"
+            app:title="@string/bio_title"
+            app:defaultValue="true"/>
+    </PreferenceCategory>
+
+</PreferenceScreen>

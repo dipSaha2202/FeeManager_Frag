@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:singleLine="true"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:textSize="@dimen/spinner_item_text_size"
+    android:textColor="@color/colorPrimaryDark"
+    tools:text="demo"
+    android:layout_margin="@dimen/spinner_item_margin"
+    android:padding="@dimen/spinner_padding"
+     />

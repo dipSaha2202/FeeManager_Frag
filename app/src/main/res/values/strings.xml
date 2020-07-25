@@ -1,0 +1,96 @@
+<resources>
+    <string name="app_name">Fee Manager</string>
+    <!-- Activity Name -->
+    <string name="title_activity_student_list">Student List</string>
+    <string name="title_activity_add_student">Add Student</string>
+    <string name="title_activity_update_student">Update</string>
+    <string name="title_activity_record_list">Records</string>
+    <string name="title_activity_admin">Home</string>
+    <string name="title_activity_unpaid">Unpaid</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Log In -->
+    <string name="id_admin">admin</string>
+    <string name="password_admin">admin</string>
+    <string name="log_in">Log In</string>
+
+    <!-- Admin Page -->
+    <string name="add_student_button">Add Student</string>
+    <string name="records_view">View Records</string>
+    <string name="update">Update</string>
+    <string name="all_student">All Students</string>
+    <string name="back_up"><![CDATA[BackUp & Restore]]></string>
+    <string name="unpaid_button_admin">Unpaid Fees</string>
+
+    <!-- Add Student -->
+    <string name="name_hint">Student\'s Name</string>
+    <string name="fee_hint_add_student">Fee</string>
+    <string name="add_student">Add</string>
+    <string name="phone_hint">10 digit number- blank if no phone</string>
+
+    <!-- Update Fee -->
+    <string name="last_month">Last Month :</string>
+    <string name="add_one">+1</string>
+    <string name="date">Date :</string>
+    <string name="dot">…</string>
+    <string name="date_class">%1$02d / %2$02d / %3$d</string>
+    <string name="update_button">Update Fee</string>
+    <string name="update_details_button">Update Details</string>
+
+    <!-- Backup And Restore -->
+    <string name="back_up_data">Back Up</string>
+    <string name="restore">Restore</string>
+    <string name="increase_session">Increase Session</string>
+    <string name="last_back_up">Last Back Up : %1$s</string>
+
+    <!-- Students List Adapter Placeholder -->
+    <string name="student_name">Name: %1$s</string>
+    <string name="student_class">Class: %1$s</string>
+    <string name="student_paid_month">Month: %1$s</string>
+    <string name="student_fee">Fee: %1$s</string>
+    <string name="student_phone">Contact: %1$s</string>
+
+    <!-- View Records Adapter Placeholder -->
+    <string name="paid_date_list">%1$s</string>
+
+    <!-- Unpaid Fee -->
+    <string name="totalFee_unpaid">Total Fee : %1$d</string>
+    <string name="unpaidFee_unpaid">Still Unpaid : %1$d</string>
+
+
+    <!-- Common -->
+    <string name="single_integer_place_holder">%1$02d</string>
+    <string name="error">Error!</string>
+    <string name="colon">:</string>
+    <string name="month_for_zero">No Payment</string>
+
+    <!-- Menus -->
+    <string name="log_out_menu">Log Out</string>
+    <string name="clear">Clear Records</string>
+    <string name="settings">Settings</string>
+
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="other_setting_header">Other Settings</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="select_sim">Messaging Sim</string>
+
+    <!-- Sync Preferences -->
+    <string name="vibration_title">Vibration</string>
+    <string name="bio_title">Fingerprint</string>
+    <string name="vibration_key">vibration</string>
+    <string name="bio_key">biometric</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="sim_settings_key">sim_adminSettings</string>
+    <string name="clear_old_table">Clear Old Table</string>
+    <string name="settings_backup">Backup and Settings</string>
+    <string name="total_students">Total Students : %1$d</string>
+    <string name="nav_open">open</string>
+    <string name="nav_close">close</string>
+
+</resources>

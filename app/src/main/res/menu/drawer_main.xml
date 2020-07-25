@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+        <item
+            android:id="@+id/nav_update"
+            android:title="@string/update_button" />
+        <item
+            android:id="@+id/nav_addStudent"
+            android:title="@string/add_student_button"/>
+        <item
+            android:id="@+id/nav_backUp"
+            android:title="@string/back_up"/>
+
+    <item android:title="View">
+        <menu>
+            <item
+                android:id="@+id/nav_viewRecords"
+                android:title="@string/records_view" />
+            <item
+                android:id="@+id/nav_allStudents"
+                android:title="@string/all_student" />
+            <item
+                android:id="@+id/nav_unpaidFee"
+                android:title="@string/unpaid_button_admin" />
+        </menu>
+    </item>
+</menu>

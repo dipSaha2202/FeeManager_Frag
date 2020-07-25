@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.diptution.fee.UnpaidFees">
+
+    <Spinner
+        android:id="@+id/spinnerClass_unpaidFee"
+       style="@style/SpinnerStyle" />
+
+    <Spinner
+        android:id="@+id/spinnerMonth_unpaidFee"
+       style="@style/SpinnerStyle"/>
+
+    <TextView
+        android:id="@+id/txtTotalFee_unpaid"
+        style="@style/TextViewStyle.WidthParent"
+        tools:text="Total Fee" />
+
+    <TextView
+        android:id="@+id/txtUnpaidFee_unpaid"
+        style="@style/TextViewStyle.WidthParent"
+        tools:text="unpaid" />
+
+    <ListView
+        android:id="@+id/listStudent_unpaidFee"
+        style="@style/ListStyle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</LinearLayout>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="text_view_padding">5dp</dimen>
+    <dimen name="text_view_margin">5dp</dimen>
+    <dimen name="text_view_text_size">22sp</dimen>
+
+    <dimen name="edit_text_margin">5dp</dimen>
+    <dimen name="edit_text_padding">5dp</dimen>
+    <dimen name="edit_text_padding_start">10dp</dimen>
+    <dimen name="edit_text_size">22sp</dimen>
+
+    <dimen name="button_margin">5dp</dimen>
+    <dimen name="button_padding">5dp</dimen>
+    <dimen name="spinner_margin">8dp</dimen>
+    <dimen name="spinner_padding">4dp</dimen>
+
+    <dimen name="spinner_item_text_size">22sp</dimen>
+    <dimen name="spinner_item_margin">16dp</dimen>
+    <dimen name="spinner_item_padding">8dp</dimen>
+
+    <dimen name="divider_height">8dp</dimen>
+
+    <dimen name="list_margin">8dp</dimen>
+    <dimen name="list_padding">2dp</dimen>
+
+    <dimen name="button_divider_radius">10dp</dimen>
+
+    <dimen name="date_calender_padding">5dp</dimen>
+    <dimen name="date_calender_margin">5dp</dimen>
+
+</resources>

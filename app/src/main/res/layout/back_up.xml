@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".BackUp">
+
+    <Button
+        android:id="@+id/btnBackUp_backup"
+        style="@style/ButtonStyle"
+        android:onClick="chooseMethod"
+        android:text="@string/back_up_data" />
+    <Button
+        android:id="@+id/btnRestore"
+        style="@style/ButtonStyle"
+        android:onClick="chooseMethod"
+        android:layout_below="@id/btnBackUp_backup"
+        android:text="@string/restore" />
+
+    <Button
+        android:id="@+id/btnIncreaseSession"
+        style="@style/ButtonStyle"
+        android:onClick="chooseMethod"
+        android:layout_above="@id/txtBackUpTime_BackUp"
+        android:text="@string/increase_session" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="invisible"/>
+
+    <TextView
+        android:id="@+id/txtBackUpTime_BackUp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="@string/last_back_up"
+        style="@style/TextViewStyle"/>
+
+</RelativeLayout>
