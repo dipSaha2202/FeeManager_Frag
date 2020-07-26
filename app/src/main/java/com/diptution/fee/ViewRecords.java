@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -35,12 +36,19 @@ public class ViewRecords extends Fragment {
     private ArrayList<String> names;
     private ArrayAdapter<String> spinnerClassAdapter, spinnerNameAdapter;
     private AdminPage activity;
+    private Context context;
 
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.view_records, container, false);
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.view_records, container, false);
+
+        listViewOfRecords = view.findViewById(R.id.listViewRecords_List);
+        spinnerClass = view.findViewById(R.id.spinnerClass_View);
+        spinnerName = view.findViewById(R.id.spinnerName_View);
+        return view;
     }
 
     @Override
@@ -50,29 +58,17 @@ public class ViewRecords extends Fragment {
         if (getContext() == null || getActivity() == null){
             return;
         }
-
         activity = (AdminPage) getActivity();
+        context = getContext();
         activity.toolbar.setTitle("View Records");
-
-
-        listViewOfRecords = view.findViewById(R.id.listViewRecords_List);
-        spinnerClass = view.findViewById(R.id.spinnerClass_View);
-        spinnerName = view.findViewById(R.id.spinnerName_View);
 
         names = new ArrayList<>();
         records = new LinkedHashMap<>();
 
-        databaseHelper = new StudentDatabaseHelper(getContext());
+        databaseHelper = new StudentDatabaseHelper(context);
 
-        spinnerClassAdapter = new ArrayAdapter<>(
-                getContext(),
-                R.layout.spinner_item,
-                VariableMethods.classes);
-
-        spinnerNameAdapter = new ArrayAdapter<>(
-               getContext(),
-                R.layout.spinner_item,
-                names);
+        spinnerClassAdapter = new ArrayAdapter<>(context, R.layout.spinner_item, VariableMethods.classes);
+        spinnerNameAdapter = new ArrayAdapter<>(context, R.layout.spinner_item, names);
 
         adapter = new RecordListAdapter(getContext(), records);
 
@@ -144,14 +140,12 @@ public class ViewRecords extends Fragment {
         menu.clear();
         inflater.inflate(R.menu.menu_records, menu);
         super.onCreateOptionsMenu(menu, inflater);
-
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.clearRecords_recordsMenu){
-            int rowChanged = databaseHelper.clearRecordsForStudent(
-                    selectedClass, selectedName);
+            int rowChanged = databaseHelper.clearRecordsForStudent(selectedClass, selectedName);
 
             if (rowChanged < 0){
                 activity.showSnackBar("Error while clearing");
@@ -198,7 +192,6 @@ public class ViewRecords extends Fragment {
                 activity.showSnackBar("Error!!");
                 return true;
             }
-
             records.remove(deletionMonth);
             adapter.updateList(records);
         }

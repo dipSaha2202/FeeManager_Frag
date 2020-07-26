@@ -37,7 +37,12 @@ public class StudentList extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.student_list, container, false);
+        View view = inflater.inflate(R.layout.student_list, container, false);
+
+        spinnerClass = view.findViewById(R.id.spinnerClass_studentList);
+        listView = view.findViewById(R.id.listStudent_studentList);
+        txtCount = view.findViewById(R.id.txtStudentCount);
+        return view;
     }
 
     @Override
@@ -50,17 +55,11 @@ public class StudentList extends Fragment {
         activity = (AdminPage) getActivity();
         activity.toolbar.setTitle("All Student");
 
-        spinnerClass = view.findViewById(R.id.spinnerClass_studentList);
-        listView = view.findViewById(R.id.listStudent_studentList);
-        txtCount = view.findViewById(R.id.txtStudentCount);
-
         students = new ArrayList<>();
 
-        spinnerClassAdapter = new ArrayAdapter<>(
-                getContext(), R.layout.spinner_item, VariableMethods.classes);
+        spinnerClassAdapter = new ArrayAdapter<>(getContext(), R.layout.spinner_item, VariableMethods.classes);
 
         databaseHelper = new StudentDatabaseHelper(getContext());
-
         adapter = new StudentListAdapter(getContext(), students);
 
         spinnerClass.setAdapter(spinnerClassAdapter);
@@ -87,10 +86,7 @@ public class StudentList extends Fragment {
         });
         registerForContextMenu(listView);
         menuItems = getResources().getStringArray(R.array.long_click_options);
-
     }
-
-
 
     @Override
     public void onCreateContextMenu(@NonNull ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
@@ -121,9 +117,4 @@ public class StudentList extends Fragment {
         txtCount.setText(getString(R.string.total_students, students.size()));
         return true;
     }
-
-   /* private void showSnackBar(String message) {
-        Snackbar.make(view.findViewById(android.R.id.content), message, Snackbar.LENGTH_SHORT)
-        .show();
-    }*/
 }

@@ -1,68 +1,76 @@
 package com.diptution.fee;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import java.util.ArrayList;
 
-public class UnpaidFees extends AppCompatActivity {
+public class UnpaidFees extends Fragment {
     private Spinner spinnerClass, spinnerMonth;
     private ListView listViewOfStudent;
     private TextView txtTotalFee, txtUnpaidFee;
 
     private ArrayAdapter<String> spinnerClassAdapter, spinnerMonthAdapter, unPaidListAdapter;
-
     private StudentDatabaseHelper databaseHelper;
-
     private ArrayList<Student> allStudentInClass;
     private ArrayList<String> unPaidNamesAndMonth;
-
     private String selectedClass;
 
     private int totalFeeOftheClass, unPaidFeeOftheClass;
-
     private static final String TAG = "Result";
 
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.unpaid_fee);
+    public View onCreateView(@NonNull LayoutInflater inflater, 
+                             @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View root = inflater.inflate(R.layout.unpaid_fee, container, false);
 
-        spinnerClass = findViewById(R.id.spinnerClass_unpaidFee);
-        spinnerMonth = findViewById(R.id.spinnerMonth_unpaidFee);
-        listViewOfStudent = findViewById(R.id.listStudent_unpaidFee);
-        txtTotalFee = findViewById(R.id.txtTotalFee_unpaid);
-        txtUnpaidFee = findViewById(R.id.txtUnpaidFee_unpaid);
+        spinnerClass = root.findViewById(R.id.spinnerClass_unpaidFee);
+        spinnerMonth = root.findViewById(R.id.spinnerMonth_unpaidFee);
+        listViewOfStudent = root.findViewById(R.id.listStudent_unpaidFee);
+        txtTotalFee = root.findViewById(R.id.txtTotalFee_unpaid);
+        txtUnpaidFee = root.findViewById(R.id.txtUnpaidFee_unpaid);
+        
+        return root;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        if (getContext() == null || getActivity() == null){
+            return;
+        }
+
+        AdminPage activity = (AdminPage) getActivity();
+        Context context = getContext();
+        activity.toolbar.setTitle("Unpaid Fees");
 
         allStudentInClass = new ArrayList<>();
         unPaidNamesAndMonth = new ArrayList<>();
         totalFeeOftheClass = 0;
         unPaidFeeOftheClass = 0;
 
-        unPaidListAdapter = new ArrayAdapter<>(
-                UnpaidFees.this,
-                R.layout.spinner_item,
-                unPaidNamesAndMonth);
+        unPaidListAdapter = new ArrayAdapter<>(context, R.layout.spinner_item, unPaidNamesAndMonth);
 
-        spinnerClassAdapter = new ArrayAdapter<>(
-                UnpaidFees.this,
-                R.layout.spinner_item,
-                VariableMethods.classes);
+        spinnerClassAdapter = new ArrayAdapter<>(context, R.layout.spinner_item, VariableMethods.classes);
 
-        spinnerMonthAdapter = new ArrayAdapter<>(
-                UnpaidFees.this,
-                R.layout.spinner_item,
-                VariableMethods.NAME_OF_MONTHS);
+        spinnerMonthAdapter = new ArrayAdapter<>(context, R.layout.spinner_item, VariableMethods.NAME_OF_MONTHS);
 
-        databaseHelper = new StudentDatabaseHelper(UnpaidFees.this);
+        databaseHelper = new StudentDatabaseHelper(context);
 
         spinnerClass.setAdapter(spinnerClassAdapter);
         spinnerMonth.setAdapter(spinnerMonthAdapter);
@@ -99,8 +107,8 @@ public class UnpaidFees extends AppCompatActivity {
             }
         });
 
-
     }
+
     private void getUnpaidStudents(String selectedClass, int listPositionStartingFromZero, String monthName) {
         allStudentInClass.clear();
         unPaidNamesAndMonth.clear();
@@ -133,6 +141,4 @@ public class UnpaidFees extends AppCompatActivity {
         txtTotalFee.setText(getString(R.string.totalFee_unpaid, totalFeeOftheClass));
         txtUnpaidFee.setText(getString(R.string.unpaidFee_unpaid, unPaidFeeOftheClass));
     }
-
-
 }

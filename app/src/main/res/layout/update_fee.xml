@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".UpdateFee">
+    android:orientation="vertical">
 
     <Spinner
         android:id="@+id/spinnerClass_update"
@@ -41,9 +39,9 @@
             tools:text="last Month" />
 
         <Button
+            android:id="@+id/btnIncreaseMonth"
             style="@style/ButtonStyle.Center"
             android:layout_weight="1"
-            android:onClick="increaseMonthByOne"
             android:text="@string/add_one" />
     </LinearLayout>
 
@@ -69,16 +67,15 @@
             tools:text=" Date " />
 
         <Button
+            android:id="@+id/btnShowCalender"
             style="@style/ButtonStyle.Center"
             android:layout_weight="1"
-            android:onClick="showCalender"
             android:text="@string/dot" />
     </LinearLayout>
 
     <Button
         android:id="@+id/btnUpdate"
         style="@style/ButtonStyle.Center"
-        android:onClick="chooseUpdate"
         android:text="@string/update_button" />
 
     <LinearLayout
@@ -106,7 +103,6 @@
         <Button
             android:id="@+id/btnUpdateDetails"
             style="@style/ButtonStyle.Center"
-            android:onClick="chooseUpdate"
             android:text="@string/update_details_button" />
     </LinearLayout>
 

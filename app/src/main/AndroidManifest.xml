@@ -25,16 +25,6 @@
         </activity>
 
         <activity
-            android:name="com.diptution.fee.UpdateFee"
-            android:label="@string/title_activity_update_student"
-            android:parentActivityName=".AdminPage" />
-
-        <activity
-            android:name="com.diptution.fee.UnpaidFees"
-            android:label="@string/title_activity_unpaid"
-            android:parentActivityName=".AdminPage" />
-
-        <activity
             android:name="com.diptution.fee.AdminPage"
             android:theme="@style/AppTheme.NoActionBar"
             android:label="@string/title_activity_admin" />

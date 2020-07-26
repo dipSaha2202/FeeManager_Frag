@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -27,7 +28,6 @@ public class AdminPage extends AppCompatActivity implements NavigationView.OnNav
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drawer);
-
 /*
         int smsPermission = ContextCompat.checkSelfPermission(AdminPage.this, Manifest.permission.SEND_SMS);
         int statusPermission = ContextCompat.checkSelfPermission(AdminPage.this, Manifest.permission.READ_PHONE_STATE);
@@ -120,7 +120,8 @@ public class AdminPage extends AppCompatActivity implements NavigationView.OnNav
         switch (item.getItemId())
         {
             case R.id.nav_update:
-                startActivity(new Intent(AdminPage.this, UpdateFee.class));
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, new UpdateFee()).commit();
                 drawerLayout.closeDrawer(GravityCompat.START);
                 break;
             case R.id.nav_addStudent:
@@ -143,7 +144,8 @@ public class AdminPage extends AppCompatActivity implements NavigationView.OnNav
                 drawerLayout.closeDrawer(GravityCompat.START);
                 break;
             case R.id.nav_unpaidFee:
-                startActivity(new Intent(AdminPage.this, UnpaidFees.class));
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, new UnpaidFees()).commit();
                 drawerLayout.closeDrawer(GravityCompat.START);
                 break;
             default:
@@ -155,5 +157,9 @@ public class AdminPage extends AppCompatActivity implements NavigationView.OnNav
        void showSnackBar(String message) {
         Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_SHORT)
         .show();
+    }
+
+     void showToast(String message) {
+        Toast.makeText(AdminPage.this, message, Toast.LENGTH_SHORT).show();
     }
 }

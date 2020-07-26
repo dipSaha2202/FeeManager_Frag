@@ -1,7 +1,9 @@
 package com.diptution.fee;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
 
 import android.Manifest;
@@ -14,7 +16,9 @@ import android.os.Vibrator;
 import android.telephony.SmsManager;
 import android.telephony.SubscriptionManager;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -22,13 +26,12 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.LinkedHashMap;
 
-public class UpdateFee extends AppCompatActivity {
+public class UpdateFee extends Fragment {
     private static final String TAG = "Result";
 
     private TextView txtLastMonth, txtDate;
@@ -46,39 +49,61 @@ public class UpdateFee extends AppCompatActivity {
 
     private StudentDatabaseHelper databaseHelper;
     private Student student;
+    private AdminPage activity;
+    private Context context;
+
+    private Button btnIncrease, btnShowCalender;
 
     private Vibrator v;
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.update_fee);
 
-        txtLastMonth = findViewById(R.id.txtLastMonth_update);
-        txtDate = findViewById(R.id.txtPayDate_update);
-        edtFee = findViewById(R.id.edtFee_update);
-        edtPhone = findViewById(R.id.edtContact_update);
-        btnUpdate = findViewById(R.id.btnUpdate);
-        btnUpdateDetails = findViewById(R.id.btnUpdateDetails);
-        spinnerClass = findViewById(R.id.spinnerClass_update);
-        spinnerNames = findViewById(R.id.spinnerName_update);
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View root = inflater.inflate(R.layout.update_fee, container, false);
+        txtLastMonth = root.findViewById(R.id.txtLastMonth_update);
+        txtDate = root.findViewById(R.id.txtPayDate_update);
+        edtFee = root.findViewById(R.id.edtFee_update);
+        edtPhone = root.findViewById(R.id.edtContact_update);
+        btnUpdate = root.findViewById(R.id.btnUpdate);
+        btnUpdateDetails = root.findViewById(R.id.btnUpdateDetails);
+        spinnerClass = root.findViewById(R.id.spinnerClass_update);
+        spinnerNames = root.findViewById(R.id.spinnerName_update);
+        btnIncrease = root.findViewById(R.id.btnIncreaseMonth);
+        btnShowCalender = root.findViewById(R.id.btnShowCalender);
+        return root;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        activity = (AdminPage) getActivity();
+        context = getContext();
+        activity.toolbar.setTitle("Update Fees");
 
         studentArrayList = new ArrayList<>();
         namesOfTheSelectedClass = new ArrayList<>();
 
-        spinnerClassAdapter = new ArrayAdapter<>(
-                UpdateFee.this,
-                R.layout.spinner_item,
-                VariableMethods.classes);
+        spinnerClassAdapter = new ArrayAdapter<>(context, R.layout.spinner_item, VariableMethods.classes);
 
-        spinnerNamesAdapter = new ArrayAdapter<>(
-                UpdateFee.this,
-                R.layout.spinner_item,
-                namesOfTheSelectedClass);
+        spinnerNamesAdapter = new ArrayAdapter<>(context, R.layout.spinner_item, namesOfTheSelectedClass);
 
         spinnerClass.setAdapter(spinnerClassAdapter);
         spinnerNames.setAdapter(spinnerNamesAdapter);
 
-        databaseHelper = new StudentDatabaseHelper(UpdateFee.this);
+        databaseHelper = new StudentDatabaseHelper(context);
+
+        View.OnClickListener listener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                chooseMethod(v);
+            }
+        };
+
+        btnShowCalender.setOnClickListener(listener);
+        btnIncrease.setOnClickListener(listener);
+        btnUpdate.setOnClickListener(listener);
+        btnUpdateDetails.setOnClickListener(listener);
 
         spinnerClass.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -87,8 +112,7 @@ public class UpdateFee extends AppCompatActivity {
 
                 studentArrayList.clear();
                 namesOfTheSelectedClass.clear();
-                studentArrayList.addAll(
-                        databaseHelper.getAllStudentsWithoutRecord(selectedClass));
+                studentArrayList.addAll(databaseHelper.getAllStudentsWithoutRecord(selectedClass));
 
                 for (int i = 0; i < studentArrayList.size(); i++) {
                     namesOfTheSelectedClass.add(studentArrayList.get(i).getName());
@@ -112,7 +136,7 @@ public class UpdateFee extends AppCompatActivity {
                     btnUpdate.setAlpha(0.5f);
                     btnUpdateDetails.setAlpha(0.5f);
                     btnUpdateDetails.setEnabled(false);
-                    showToast("No Student in The Class");
+                    activity.showToast("No Student in The Class");
                 }
             }
 
@@ -135,15 +159,15 @@ public class UpdateFee extends AppCompatActivity {
 
         calenderForClass = Calendar.getInstance();
 
-        v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
     }
 
-    public void showCalender(View view) {
+    public void showCalender() {
         int mYear = calenderForClass.get(Calendar.YEAR);
         int mMonth = calenderForClass.get(Calendar.MONTH);
         int mDay = calenderForClass.get(Calendar.DAY_OF_MONTH);
 
-        DatePickerDialog datePickerDialog = new DatePickerDialog(this,
+        DatePickerDialog datePickerDialog = new DatePickerDialog(context,
                 new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year,
@@ -181,7 +205,7 @@ public class UpdateFee extends AppCompatActivity {
         edtPhone.setText(student.getPhoneNumber().substring(3));
     }
 
-    public void increaseMonthByOne(View view) {
+    public void increaseMonthByOne() {
         txtDate.setText("");
 
         if (payingMonth < 12) {
@@ -200,35 +224,32 @@ public class UpdateFee extends AppCompatActivity {
         }
     }
 
-    private void showToast(String message) {
-        Toast.makeText(UpdateFee.this, message, Toast.LENGTH_SHORT).show();
-    }
 
     private void updateFeeRecords() {
         String date = txtDate.getText().toString();
         String month = String.valueOf(payingMonth);
 
-        if (!date.isEmpty()) {
-            if (payingMonth != 0) {
-                int rowsEffected = databaseHelper.updateRecords(selectedClass, selectedName,
-                        month, date);
+        if (date.isEmpty()) {
+            activity.showToast("Enter Date");
+            return;
+        }
 
-                if (rowsEffected > 0) {
-                    showToast("Updated " + selectedClass + " : " + selectedName +
-                            " month paid : " + VariableMethods.NAME_OF_MONTHS[payingMonth - 1] +
-                            " on date : " + date);
+        if (payingMonth != 0) {
+            int rowsEffected = databaseHelper.updateRecords(selectedClass, selectedName, month, date);
 
-                    String messageForStudent = selectedName + " : Payment done for "
-                            + VariableMethods.NAME_OF_MONTHS[payingMonth - 1] + " on date : " + date;
-                   // sendTextMessage(messageForStudent);
-                } else {
-                    showToast("Error Updating");
-                }
+            if (rowsEffected > 0) {
+                activity.showToast("Updated " + selectedClass + " : " + selectedName +
+                        " month paid : " + VariableMethods.NAME_OF_MONTHS[payingMonth - 1] +
+                        " on date : " + date);
+
+               // String messageForStudent = selectedName + " : Payment done for "
+                     //   + VariableMethods.NAME_OF_MONTHS[payingMonth - 1] + " on date : " + date;
+                // sendTextMessage(messageForStudent);
             } else {
-                showToast("No Payment can not be update");
+                activity.showToast("Error Updating");
             }
         } else {
-            showToast("Enter Date");
+            activity.showToast("No Payment can not be update");
         }
     }
 
@@ -236,57 +257,55 @@ public class UpdateFee extends AppCompatActivity {
         String phone = edtPhone.getText().toString();
         String fee = edtFee.getText().toString();
 
-        if (fee.length() == 0){
-            showToast("Fee is required.");
+        if (fee.length() == 0) {
+            activity.showToast("Fee is required.");
             return;
         }
 
         if (phone.length() == 0 || phone.length() == 10) {
-            databaseHelper.updatePhoneAndFee(selectedClass,
-                    selectedName, fee, "+91" + phone);
-            showToast("Updated " + selectedName + " phone " + phone + " fee " + fee);
+            databaseHelper.updatePhoneAndFee(selectedClass, selectedName, fee, "+91" + phone);
+            activity.showToast("Updated " + selectedName + " phone " + phone + " fee " + fee);
         } else {
-            showToast("Either enter 10 digit or leave blank");
+            activity.showToast("Either enter 10 digit or leave blank");
         }
     }
 
     private void sendTextMessage(String message) {
-        if (AdminPage.PermissionForSMS && AdminPage.PermissionForPhoneState) {
+        if (!AdminPage.PermissionForSMS || !AdminPage.PermissionForPhoneState) {
+            activity.showToast("does not have permission for sms");
+            return;
+        }
 
-            if (phoneNumber.length() >= 10) {
-                SubscriptionManager manager = SubscriptionManager.from(UpdateFee.this);
-                if (ActivityCompat.checkSelfPermission(
-                        this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
-                    return;
-                }
+        if (phoneNumber.length() < 10) {
+            activity.showToast("Student Does not have valid number. message was not sent");
+            return;
+        }
 
-                SharedPreferences preferences = PreferenceManager
-                        .getDefaultSharedPreferences(UpdateFee.this);
+        SubscriptionManager manager = SubscriptionManager.from(context);
 
-                int slotIndex = Integer.parseInt(preferences
-                        .getString("sim_adminSettings", "0"));
+        if (ActivityCompat.checkSelfPermission(context,
+                Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
 
-                String detailsOfSlot = manager.getActiveSubscriptionInfoForSimSlotIndex(slotIndex).toString();
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        int slotIndex = Integer.parseInt(preferences.getString("sim_adminSettings", "0"));
 
-                try {
-                    int subId = Integer.parseInt(detailsOfSlot.substring(4, 5));
-                    // Log.d(TAG, "updateStudent: " + subId);
-                    SmsManager smsManager = SmsManager.getSmsManagerForSubscriptionId(subId);
-                    // smsManager.sendTextMessage(phoneNumber, null, message, null, null);
-                    showToast("message sent to " + selectedName + " on " + phoneNumber);
-                } catch (Exception e) {
-                    Log.d(TAG, "updateStudent: " + "can not parse int");
-                    showToast("can not fetch sim ID");
-                }
-            } else {
-                showToast("Student Does not have number. message was not sent");
-            }
-        } else {
-            showToast("does not have permission for sms");
+        String detailsOfSlot = manager.getActiveSubscriptionInfoForSimSlotIndex(slotIndex).toString();
+
+        try {
+            int subId = Integer.parseInt(detailsOfSlot.substring(4, 5));
+            // Log.d(TAG, "updateStudent: " + subId);
+            SmsManager smsManager = SmsManager.getSmsManagerForSubscriptionId(subId);
+            // smsManager.sendTextMessage(phoneNumber, null, message, null, null);
+            activity.showToast("message sent to " + selectedName + " on " + phoneNumber);
+        } catch (Exception e) {
+            Log.d(TAG, "updateStudent: " + "can not parse int");
+            activity.showToast("can not fetch sim ID");
         }
     }
 
-    public void chooseUpdate(View view) {
+    public void chooseMethod(View view) {
         if (LogIn.DEFAULT_VIBRATION) {
             v.vibrate(LogIn.VIBRATION_TIME);
         }
@@ -296,6 +315,12 @@ public class UpdateFee extends AppCompatActivity {
                 break;
             case R.id.btnUpdateDetails:
                 updateDetails();
+                break;
+            case R.id.btnShowCalender:
+                showCalender();
+                break;
+            case R.id.btnIncreaseMonth:
+                increaseMonthByOne();
                 break;
             default:
                 break;
