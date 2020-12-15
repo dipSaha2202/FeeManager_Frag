@@ -23,7 +23,6 @@ public class AddStudent extends Fragment {
     private Button btnAddStudent;
     private AdminPage activity;
 
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -49,12 +48,10 @@ public class AddStudent extends Fragment {
         activity = (AdminPage) getActivity();
         activity.toolbar.setTitle("Add Student");
 
-        spinnerClassAdapter = new ArrayAdapter<>(getContext(), R.layout.spinner_item,
-                VariableMethods.classes);
-
+        spinnerClassAdapter = new ArrayAdapter<>(getContext(), R.layout.spinner_item, VariableMethods.classes);
         databaseHelper = new StudentDatabaseHelper(getContext());
-
         spinnerClass.setAdapter(spinnerClassAdapter);
+
         spinnerClass.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
